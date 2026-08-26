@@ -35,6 +35,7 @@ function App() {
   const [transactions, setTransactions] = useState(getInitialTransactions)
   const [selectedMonth, setSelectedMonth] = useState(new Date().toISOString().slice(0, 7))
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [editingTransaction, setEditingTransaction] = useState(null)
   const [filter, setFilter] = useState('all')
   const [search, setSearch] = useState('')
 
@@ -42,10 +43,7 @@ function App() {
     localStorage.setItem('fluxo-transactions', JSON.stringify(transactions))
   }, [transactions])
 
-  const monthTransactions = useMemo(
-    () => transactions.filter((transaction) => transaction.date.slice(0, 7) === selectedMonth),
-    [transactions, selectedMonth],
-  )
+  const monthTransactions = useMemo(() => transactions.filter((transaction) => transaction.date.slice(0, 7) === selectedMonth), [transactions, selectedMonth])
 
   const summary = useMemo(() => monthTransactions.reduce((acc, transaction) => {
     if (transaction.type === 'income') acc.income += Number(transaction.amount)
@@ -68,11 +66,35 @@ function App() {
     setSelectedMonth(`${next.getFullYear()}-${String(next.getMonth() + 1).padStart(2, '0')}`)
   }
 
-  function openModal() {
+  function openNewTransaction() {
+    setEditingTransaction(null)
     setIsModalOpen(true)
   }
 
-  function addTransaction(form) {
+  function openEditTransaction(transaction) {
+    setEditingTransaction(transaction)
+    setIsModalOpen(true)
+  }
+
+  function closeModal() {
+    setIsModalOpen(false)
+    setEditingTransaction(null)
+  }
+
+  function saveTransaction(form) {
+    if (editingTransaction) {
+      setTransactions((current) => current.map((transaction) => transaction.id === editingTransaction.id ? {
+        ...transaction,
+        description: form.description.trim(),
+        category: form.category,
+        amount: Number(form.amount),
+        date: form.date,
+      } : transaction))
+      setSelectedMonth(form.date.slice(0, 7))
+      closeModal()
+      return
+    }
+
     const total = Number(form.amount)
     const count = form.type === 'expense' ? Math.max(1, Number(form.installments)) : 1
     const totalInCents = Math.round(total * 100)
@@ -90,7 +112,7 @@ function App() {
 
     setTransactions((current) => [...newTransactions, ...current])
     setSelectedMonth(form.date.slice(0, 7))
-    setIsModalOpen(false)
+    closeModal()
   }
 
   function removeTransaction(id) {
@@ -98,11 +120,11 @@ function App() {
   }
 
   return <main className="app-shell">
-    <Header onNewTransaction={openModal} />
+    <Header onNewTransaction={openNewTransaction} />
     <section className="hero" id="top"><div><p className="eyebrow">Visão geral</p><h1>Olá, Lucas! <span>✦</span></h1><p className="subtitle">Acompanhe suas finanças e mantenha seus objetivos no rumo certo.</p></div><MonthPicker selectedMonth={selectedMonth} monthLabel={monthLabel} onChangeMonth={changeMonth} onSelectMonth={setSelectedMonth} /></section>
     <Summary summary={summary} monthLabel={monthLabel} currency={currency} />
-    <TransactionsSection monthLabel={monthLabel} filter={filter} search={search} onFilterChange={setFilter} onSearchChange={setSearch} onAdd={openModal} transactions={filteredTransactions} currency={currency} onRemove={removeTransaction} />
-    {isModalOpen && <TransactionModal selectedMonth={selectedMonth} onSubmit={addTransaction} onClose={() => setIsModalOpen(false)} />}
+    <TransactionsSection monthLabel={monthLabel} filter={filter} search={search} onFilterChange={setFilter} onSearchChange={setSearch} onAdd={openNewTransaction} transactions={filteredTransactions} currency={currency} onRemove={removeTransaction} onEdit={openEditTransaction} />
+    {isModalOpen && <TransactionModal selectedMonth={selectedMonth} transaction={editingTransaction} onSubmit={saveTransaction} onClose={closeModal} />}
   </main>
 }
 
