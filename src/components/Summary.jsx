@@ -1,0 +1,5 @@
+import Icon from './Icon'
+
+export default function Summary({ summary, monthLabel, currency }) {
+  return <section className="summary-grid" aria-label="Resumo financeiro"><article className="summary-card balance"><div className="card-label"><span>Saldo do mês</span><span className="icon-chip"><Icon name="wallet" size={18} /></span></div><strong>{currency.format(summary.income - summary.expense)}</strong><p>Resultado de {monthLabel}</p></article><article className="summary-card"><div className="card-label"><span>Entradas</span><span className="icon-chip positive"><Icon name="income" size={18} /></span></div><strong>{currency.format(summary.income)}</strong><p className="positive-text">↗ Valores recebidos</p></article><article className="summary-card"><div className="card-label"><span>Saídas</span><span className="icon-chip negative"><Icon name="expense" size={18} /></span></div><strong>{currency.format(summary.expense)}</strong><p className="negative-text">↘ Valores gastos</p></article></section>
+}
