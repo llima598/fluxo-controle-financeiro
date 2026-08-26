@@ -8,6 +8,7 @@ export default function Icon({ name, size = 20 }) {
     close: <><path d="m6 6 12 12" /><path d="m18 6-12 12" /></>,
     search: <><circle cx="11" cy="11" r="6" /><path d="m20 20-4.2-4.2" /></>,
     trash: <><path d="M4 7h16" /><path d="M10 11v5" /><path d="M14 11v5" /><path d="M6 7l1 13h10l1-13" /><path d="M9 7V4h6v3" /></>,
+    edit: <><path d="M12 20h9" /><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z" /></>,
     left: <path d="m15 18-6-6 6-6" />,
     right: <path d="m9 18 6-6-6-6" />,
   }
