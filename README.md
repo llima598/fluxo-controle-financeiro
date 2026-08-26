@@ -1,26 +1,55 @@
-# Fluxo — Controle Financeiro
+# 💰 Fluxo — Controle Financeiro
 
-Uma aplicação web responsiva para acompanhar entradas, despesas e compras parceladas. O projeto foi desenvolvido como parte do meu portfólio de front-end.
+Aplicação web responsiva para controle de entradas, despesas e compras parceladas, desenvolvida com **React e JavaScript** como projeto de portfólio para Front-end.
 
-## Funcionalidades
+## 🚀 Demo
+
+🔗 **[Acessar o projeto](#)**
+
+> Substitua o link acima pelo endereço do deploy quando publicar a aplicação.
+
+## 📸 Preview
+
+Adicione aqui uma captura de tela ou GIF da aplicação em funcionamento.
+
+## ✨ Funcionalidades
 
 - Cadastro e exclusão de transações
 - Resumo mensal de saldo, entradas e saídas
 - Navegação entre meses
-- Filtro por tipo de movimentação e busca por descrição ou categoria
-- Parcelamentos automáticos: uma compra em 12x gera uma despesa para cada mês
-- Persistência dos dados no navegador com `localStorage`
-- Layout responsivo para computador e celular
+- Filtro por tipo de movimentação
+- Busca por descrição ou categoria
+- Compras parceladas com geração automática das parcelas nos meses seguintes
+- Divisão dos valores em centavos para evitar diferenças de arredondamento nas parcelas
+- Persistência dos dados com `localStorage`
+- Interface responsiva para desktop e dispositivos móveis
+- Estados de lista vazia e feedback visual na interface
 
-## Tecnologias
+## 🛠️ Tecnologias
 
-- React
-- JavaScript
-- Vite
-- CSS puro
-- Oxlint
+- **React** — componentes, Hooks e gerenciamento de estado
+- **JavaScript** — lógica da aplicação e manipulação dos dados
+- **Vite** — ambiente de desenvolvimento e build
+- **CSS** — estilização e responsividade
+- **LocalStorage** — persistência dos dados no navegador
+- **Oxlint** — análise estática do código
 
-## Como executar localmente
+## 🧠 O que pratiquei
+
+Neste projeto desenvolvi uma aplicação React do início ao fim, praticando:
+
+- Componentes e composição de interface
+- `useState`, `useEffect` e `useMemo`
+- Formulários controlados
+- Renderização condicional e listas
+- Filtros e busca em tempo real
+- Persistência de dados no navegador
+- Cálculos e divisão de valores financeiros
+- Navegação entre meses
+- Responsividade
+- Acessibilidade básica com atributos ARIA
+
+## 💻 Como executar localmente
 
 ```bash
 git clone https://github.com/llima598/fluxo-controle-financeiro.git
@@ -29,20 +58,24 @@ npm install
 npm run dev
 ```
 
-Depois, abra o endereço exibido no terminal, normalmente `http://localhost:5173`.
+Depois, abra no navegador o endereço exibido pelo Vite, normalmente `http://localhost:5173`.
 
-## O que aprendi
+## 🔮 Próximas melhorias
 
-Neste projeto pratiquei componentes React, gerenciamento de estado com Hooks, formulários controlados, renderização de listas, filtros, cálculos de valores financeiros, persistência local e responsividade.
+- [ ] Editar transações existentes
+- [ ] Criar despesas recorrentes
+- [ ] Adicionar gráficos por categoria
+- [ ] Adicionar testes automatizados
+- [ ] Autenticação e banco de dados
+- [ ] Deploy da aplicação
 
-## Próximos passos
+## 👤 Autor
 
-- Editar transações já cadastradas
-- Criar despesas recorrentes
-- Adicionar gráficos por categoria
-- Autenticação e banco de dados para acessar os dados em outros dispositivos
+**Lucas Lima**
+
+- [GitHub](https://github.com/llima598)
+- [LinkedIn](https://www.linkedin.com/in/lucas-lima-231248191/)
 
 ---
 
-Feito por [Lucas Lima](https://github.com/llima598)
-
+Projeto desenvolvido como parte dos meus estudos e preparação para uma oportunidade profissional como **Desenvolvedor Front-end Júnior**.
