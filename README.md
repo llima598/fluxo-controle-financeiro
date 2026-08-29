@@ -4,9 +4,7 @@ Aplicação web responsiva para controle de entradas, despesas e compras parcela
 
 ## 🚀 Demo
 
-🔗 **[Acessar o projeto](#)**
-
-> Substitua o link acima pelo endereço do deploy quando publicar a aplicação.
+🔗 **[Acessar o projeto](https://fluxo-controle-financeiro-iota.vercel.app)**
 
 ## 📸 Preview
 
@@ -14,7 +12,7 @@ Adicione aqui uma captura de tela ou GIF da aplicação em funcionamento.
 
 ## ✨ Funcionalidades
 
-- Cadastro e exclusão de transações
+- Cadastro, edição e exclusão de transações (CRUD)
 - Resumo mensal de saldo, entradas e saídas
 - Navegação entre meses
 - Filtro por tipo de movimentação
@@ -38,8 +36,9 @@ Adicione aqui uma captura de tela ou GIF da aplicação em funcionamento.
 
 Neste projeto desenvolvi uma aplicação React do início ao fim, praticando:
 
-- Componentes e composição de interface
+- Componentização e composição de interface
 - `useState`, `useEffect` e `useMemo`
+- CRUD de transações
 - Formulários controlados
 - Renderização condicional e listas
 - Filtros e busca em tempo real
@@ -62,12 +61,10 @@ Depois, abra no navegador o endereço exibido pelo Vite, normalmente `http://loc
 
 ## 🔮 Próximas melhorias
 
-- [ ] Editar transações existentes
 - [ ] Criar despesas recorrentes
 - [ ] Adicionar gráficos por categoria
 - [ ] Adicionar testes automatizados
 - [ ] Autenticação e banco de dados
-- [ ] Deploy da aplicação
 
 ## 👤 Autor
 
