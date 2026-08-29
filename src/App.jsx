@@ -38,10 +38,17 @@ function App() {
   const [editingTransaction, setEditingTransaction] = useState(null)
   const [filter, setFilter] = useState('all')
   const [search, setSearch] = useState('')
+  const [notification, setNotification] = useState(null)
 
   useEffect(() => {
     localStorage.setItem('fluxo-transactions', JSON.stringify(transactions))
   }, [transactions])
+
+  useEffect(() => {
+    if (!notification) return
+    const timer = setTimeout(() => setNotification(null), 3000)
+    return () => clearTimeout(timer)
+  }, [notification])
 
   const monthTransactions = useMemo(() => transactions.filter((transaction) => transaction.date.slice(0, 7) === selectedMonth), [transactions, selectedMonth])
 
@@ -91,6 +98,7 @@ function App() {
         date: form.date,
       } : transaction))
       setSelectedMonth(form.date.slice(0, 7))
+      setNotification('Dados atualizados com sucesso!')
       closeModal()
       return
     }
@@ -112,6 +120,7 @@ function App() {
 
     setTransactions((current) => [...newTransactions, ...current])
     setSelectedMonth(form.date.slice(0, 7))
+    setNotification('Dados cadastrados com sucesso!')
     closeModal()
   }
 
@@ -120,6 +129,7 @@ function App() {
   }
 
   return <main className="app-shell">
+    {notification && <div className="toast-success">{notification}</div>}
     <Header onNewTransaction={openNewTransaction} />
     <section className="hero" id="top"><div><p className="eyebrow">Visão geral</p><h1>Olá, Lucas! <span>✦</span></h1><p className="subtitle">Acompanhe suas finanças e mantenha seus objetivos no rumo certo.</p></div><MonthPicker selectedMonth={selectedMonth} monthLabel={monthLabel} onChangeMonth={changeMonth} onSelectMonth={setSelectedMonth} /></section>
     <Summary summary={summary} monthLabel={monthLabel} currency={currency} />

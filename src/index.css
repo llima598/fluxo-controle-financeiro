@@ -1,7 +1,48 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap');
 
-* { box-sizing: border-box; }
-body { margin: 0; min-width: 320px; background: #f7f8f6; color: #17201b; font-family: 'DM Sans', Arial, sans-serif; }
-button, input, select { font: inherit; }
-button { cursor: pointer; }
+* {
+    box-sizing: border-box;
+}
 
+body {
+    margin: 0;
+    min-width: 320px;
+    background: #f7f8f6;
+    color: #17201b;
+    font-family: 'DM Sans', Arial, sans-serif;
+}
+
+button,
+input,
+select {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+.toast-success {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #22c55e;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
