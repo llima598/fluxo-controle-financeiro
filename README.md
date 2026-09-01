@@ -8,7 +8,7 @@ Aplicação web responsiva para controle de entradas, despesas e compras parcela
 
 ## 📸 Preview
 
-<img width="1366" height="768" alt="Captura de tela 2026-08-18 155541" src="https://github.com/user-attachments/assets/ffe63983-2f1a-41f1-8a5a-8d8b88460f4f" />
+<img width="1366" height="679" alt="Captura de tela 2026-08-18 155541" src="https://github.com/user-attachments/assets/ef057b12-b4b1-45c6-be63-4b1acb86024b" />
 
 ## ✨ Funcionalidades
 
