@@ -1,7 +1,60 @@
-.app-shell {
+ .app-shell {
     max-width: 1180px;
     margin: 0 auto;
     padding: 0 28px 48px;
+}
+
+.category-card {
+    margin-top: 18px;
+    padding: 25px;
+    border: 1px solid #e1e7e2;
+    border-radius: 16px;
+    background: white;
+}
+
+.category-list {
+    display: grid;
+    gap: 16px;
+    margin-top: 24px;
+}
+
+.category-row {
+    display: grid;
+    gap: 7px;
+}
+
+.category-label {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    color: #59665e;
+    font-size: 13px;
+}
+
+.category-label strong {
+    color: #26352d;
+    font-size: 13px;
+}
+
+.category-track {
+    height: 8px;
+    overflow: hidden;
+    border-radius: 999px;
+    background: #edf2ee;
+}
+
+.category-track span {
+    display: block;
+    height: 100%;
+    border-radius: inherit;
+    background: #4b8a6d;
+    transition: width .3s ease;
+}
+
+.category-empty {
+    margin: 20px 0 0;
+    color: #89938d;
+    font-size: 13px;
 }
 
 .topbar {
@@ -379,10 +432,6 @@ h2 {
     margin-left: 14px;
 }
 
-.transaction:hover .transaction-actions {
-    opacity: 1;
-}
-
 .edit-button,
 .delete-button {
     padding: 6px;
@@ -488,6 +537,20 @@ h2 {
     width: 100%;
 }
 
+.toast-success {
+    position: fixed;
+    z-index: 10;
+    top: 20px;
+    right: 20px;
+    padding: 12px 16px;
+    color: white;
+    border-radius: 10px;
+    background: #1d6b4e;
+    box-shadow: 0 8px 24px rgba(23, 57, 42, .18);
+    font-size: 13px;
+    font-weight: 700;
+}
+
 @media (max-width: 680px) {
     .app-shell {
         padding: 0 16px 30px;
@@ -529,6 +592,10 @@ h2 {
         margin-top: 12px;
     }
 
+    .category-card {
+        padding: 18px;
+    }
+
     .content-card {
         margin-top: 18px;
         padding: 18px;
@@ -560,7 +627,13 @@ h2 {
     }
 
     .transaction-actions {
-        opacity: 1;
         margin-left: 6px;
+    }
+
+    .toast-success {
+        left: 16px;
+        right: 16px;
+        top: 14px;
+        text-align: center;
     }
 }
