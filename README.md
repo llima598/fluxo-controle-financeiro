@@ -19,6 +19,7 @@ Aplicação web responsiva para controle de entradas, despesas e compras parcela
 - Busca por descrição ou categoria
 - Compras parceladas com geração automática das parcelas nos meses seguintes
 - Divisão dos valores em centavos para evitar diferenças de arredondamento nas parcelas
+- Análise visual dos gastos por categoria
 - Persistência dos dados com `localStorage`
 - Interface responsiva para desktop e dispositivos móveis
 - Estados de lista vazia e feedback visual na interface
@@ -28,7 +29,7 @@ Aplicação web responsiva para controle de entradas, despesas e compras parcela
 - **React** — componentes, Hooks e gerenciamento de estado
 - **JavaScript** — lógica da aplicação e manipulação dos dados
 - **Vite** — ambiente de desenvolvimento e build
-- **CSS** — estilização e responsividade
+- **CSS** — estilização, responsividade e visualização dos dados
 - **LocalStorage** — persistência dos dados no navegador
 - **Oxlint** — análise estática do código
 
@@ -37,13 +38,16 @@ Aplicação web responsiva para controle de entradas, despesas e compras parcela
 Neste projeto desenvolvi uma aplicação React do início ao fim, praticando:
 
 - Componentização e composição de interface
+- Separação de regras de negócio em Hooks e utilitários
 - `useState`, `useEffect` e `useMemo`
 - CRUD de transações
 - Formulários controlados
 - Renderização condicional e listas
 - Filtros e busca em tempo real
 - Persistência de dados no navegador
-- Cálculos e divisão de valores financeiros
+- Cálculos financeiros com valores em centavos
+- Geração e organização de compras parceladas
+- Análise de gastos por categoria
 - Navegação entre meses
 - Responsividade
 - Acessibilidade básica com atributos ARIA
@@ -61,9 +65,10 @@ Depois, abra no navegador o endereço exibido pelo Vite, normalmente `http://loc
 
 ## 🔮 Próximas melhorias
 
+- [ ] Migrar o projeto para TypeScript
+- [ ] Adicionar testes automatizados para regras financeiras
+- [ ] Permitir gerenciamento de grupos de parcelas
 - [ ] Criar despesas recorrentes
-- [ ] Adicionar gráficos por categoria
-- [ ] Adicionar testes automatizados
 - [ ] Autenticação e banco de dados
 
 ## 👤 Autor
