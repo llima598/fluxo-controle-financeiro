@@ -5,6 +5,7 @@ import MonthPicker from './components/MonthPicker'
 import Summary from './components/Summary'
 import TransactionsSection from './components/TransactionsSection'
 import TransactionModal from './components/TransactionModal'
+import CategoryChart from './components/CategoryChart'
 import useTransactions from './hooks/useTransactions'
 import { CURRENCY, getMonthLabel } from './utils/finance'
 
@@ -24,6 +25,7 @@ function App() {
   const {
     transactions,
     summary,
+    categoryExpenses,
     filter,
     search,
     setFilter,
@@ -65,13 +67,12 @@ function App() {
   function saveTransaction(form) {
     if (editingTransaction) {
       updateTransaction(editingTransaction.id, form)
-      setSelectedMonth(form.date.slice(0, 7))
       setNotification('Dados atualizados com sucesso!')
     } else {
       addTransaction(form)
-      setSelectedMonth(form.date.slice(0, 7))
       setNotification('Dados cadastrados com sucesso!')
     }
+    setSelectedMonth(form.date.slice(0, 7))
     closeModal()
   }
 
@@ -85,6 +86,7 @@ function App() {
     <Header onNewTransaction={openNewTransaction} />
     <section className="hero" id="top"><div><p className="eyebrow">Visão geral</p><h1>Olá, Lucas! <span>✦</span></h1><p className="subtitle">Acompanhe suas finanças e mantenha seus objetivos no rumo certo.</p></div><MonthPicker selectedMonth={selectedMonth} monthLabel={monthLabel} onChangeMonth={changeMonth} onSelectMonth={setSelectedMonth} /></section>
     <Summary summary={summary} monthLabel={monthLabel} currency={CURRENCY} />
+    <CategoryChart expenses={categoryExpenses} currency={CURRENCY} />
     <TransactionsSection monthLabel={monthLabel} filter={filter} search={search} onFilterChange={setFilter} onSearchChange={setSearch} onAdd={openNewTransaction} transactions={transactions} currency={CURRENCY} onRemove={handleRemove} onEdit={openEditTransaction} />
     {isModalOpen && <TransactionModal selectedMonth={selectedMonth} transaction={editingTransaction} onSubmit={saveTransaction} onClose={closeModal} />}
   </main>
