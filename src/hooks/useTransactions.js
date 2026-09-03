@@ -17,6 +17,19 @@ export default function useTransactions(initialTransactions, selectedMonth) {
 
   const summary = useMemo(() => calculateSummary(monthTransactions), [monthTransactions])
 
+  const categoryExpenses = useMemo(() => {
+    const totals = monthTransactions
+      .filter((transaction) => transaction.type === 'expense')
+      .reduce((acc, transaction) => {
+        acc[transaction.category] = (acc[transaction.category] || 0) + Number(transaction.amount)
+        return acc
+      }, {})
+
+    return Object.entries(totals)
+      .map(([category, amount]) => ({ category, amount }))
+      .sort((a, b) => b.amount - a.amount)
+  }, [monthTransactions])
+
   const filteredTransactions = useMemo(() => {
     const term = search.trim().toLowerCase()
 
@@ -57,15 +70,10 @@ export default function useTransactions(initialTransactions, selectedMonth) {
     setTransactions((current) => current.filter((transaction) => transaction.id !== id))
   }
 
-  function removeInstallmentGroup(groupId) {
-    setTransactions((current) =>
-      current.filter((transaction) => transaction.installment?.groupId !== groupId),
-    )
-  }
-
   return {
     transactions: filteredTransactions,
     summary,
+    categoryExpenses,
     filter,
     search,
     setFilter,
@@ -73,6 +81,5 @@ export default function useTransactions(initialTransactions, selectedMonth) {
     addTransaction,
     updateTransaction,
     removeTransaction,
-    removeInstallmentGroup,
   }
 }
