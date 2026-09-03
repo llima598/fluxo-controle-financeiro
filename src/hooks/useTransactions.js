@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { calculateSummary, createTransactions, getInitialTransactions } from '../utils/finance'
 
-export default function useTransactions(initialTransactions) {
+export default function useTransactions(initialTransactions, selectedMonth) {
   const [transactions, setTransactions] = useState(() => getInitialTransactions(initialTransactions))
   const [filter, setFilter] = useState('all')
   const [search, setSearch] = useState('')
