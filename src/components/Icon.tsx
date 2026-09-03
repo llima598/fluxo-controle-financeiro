@@ -1,5 +1,14 @@
-export default function Icon({ name, size = 20 }) {
-  const paths = {
+import type { ReactNode } from 'react'
+
+type IconName = 'wallet' | 'income' | 'expense' | 'chart' | 'plus' | 'close' | 'search' | 'trash' | 'edit' | 'left' | 'right'
+
+interface IconProps {
+  name: IconName
+  size?: number
+}
+
+export default function Icon({ name, size = 20 }: IconProps) {
+  const paths: Record<IconName, ReactNode> = {
     wallet: <><path d="M4 7.5V6a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v1.5" /><path d="M4 7.5h15a1 1 0 0 1 1 1v9.5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8.5a2 2 0 0 1 2-2Z" /><path d="M16 13h4" /></>,
     income: <><path d="M12 19V5" /><path d="m6 11 6-6 6 6" /></>,
     expense: <><path d="M12 5v14" /><path d="m18 13-6 6-6-6" /></>,

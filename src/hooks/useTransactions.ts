@@ -1,9 +1,10 @@
 import { useEffect, useMemo, useState } from 'react'
-import { calculateSummary, createTransactions, getInitialTransactions } from '../utils/finance'
+import type { CategoryExpense, Transaction, TransactionForm } from '../types/transaction'
+import { calculateSummary, createTransactions, getCategoryExpenses, getInitialTransactions } from '../utils/finance'
 
-export default function useTransactions(initialTransactions, selectedMonth) {
-  const [transactions, setTransactions] = useState(() => getInitialTransactions(initialTransactions))
-  const [filter, setFilter] = useState('all')
+export default function useTransactions(initialTransactions: Transaction[], selectedMonth: string) {
+  const [transactions, setTransactions] = useState<Transaction[]>(() => getInitialTransactions(initialTransactions))
+  const [filter, setFilter] = useState<'all' | 'income' | 'expense'>('all')
   const [search, setSearch] = useState('')
 
   useEffect(() => {
@@ -16,19 +17,7 @@ export default function useTransactions(initialTransactions, selectedMonth) {
   )
 
   const summary = useMemo(() => calculateSummary(monthTransactions), [monthTransactions])
-
-  const categoryExpenses = useMemo(() => {
-    const totals = monthTransactions
-      .filter((transaction) => transaction.type === 'expense')
-      .reduce((acc, transaction) => {
-        acc[transaction.category] = (acc[transaction.category] || 0) + Number(transaction.amount)
-        return acc
-      }, {})
-
-    return Object.entries(totals)
-      .map(([category, amount]) => ({ category, amount }))
-      .sort((a, b) => b.amount - a.amount)
-  }, [monthTransactions])
+  const categoryExpenses = useMemo<CategoryExpense[]>(() => getCategoryExpenses(monthTransactions), [monthTransactions])
 
   const filteredTransactions = useMemo(() => {
     const term = search.trim().toLowerCase()
@@ -46,11 +35,11 @@ export default function useTransactions(initialTransactions, selectedMonth) {
       .sort((a, b) => b.date.localeCompare(a.date))
   }, [monthTransactions, filter, search])
 
-  function addTransaction(form) {
+  function addTransaction(form: TransactionForm): void {
     setTransactions((current) => [...createTransactions(form), ...current])
   }
 
-  function updateTransaction(transactionId, form) {
+  function updateTransaction(transactionId: number, form: TransactionForm): void {
     setTransactions((current) =>
       current.map((transaction) =>
         transaction.id === transactionId
@@ -66,7 +55,7 @@ export default function useTransactions(initialTransactions, selectedMonth) {
     )
   }
 
-  function removeTransaction(id) {
+  function removeTransaction(id: number): void {
     setTransactions((current) => current.filter((transaction) => transaction.id !== id))
   }
 
