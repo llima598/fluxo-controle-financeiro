@@ -34,3 +34,9 @@ export interface CategoryExpense {
   category: string
   amount: number
 }
+
+export interface DailyFinancialSummary {
+  day: number
+  income: number
+  expense: number
+}

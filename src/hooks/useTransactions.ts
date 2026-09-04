@@ -1,6 +1,12 @@
 import { useEffect, useMemo, useState } from 'react'
-import type { CategoryExpense, Transaction, TransactionForm } from '../types/transaction'
-import { calculateSummary, createTransactions, getCategoryExpenses, getInitialTransactions } from '../utils/finance'
+import type { CategoryExpense, DailyFinancialSummary, Transaction, TransactionForm } from '../types/transaction'
+import {
+  calculateSummary,
+  createTransactions,
+  getCategoryExpenses,
+  getDailyFinancialSummary,
+  getInitialTransactions,
+} from '../utils/finance'
 
 export default function useTransactions(initialTransactions: Transaction[], selectedMonth: string) {
   const [transactions, setTransactions] = useState<Transaction[]>(() => getInitialTransactions(initialTransactions))
@@ -18,6 +24,10 @@ export default function useTransactions(initialTransactions: Transaction[], sele
 
   const summary = useMemo(() => calculateSummary(monthTransactions), [monthTransactions])
   const categoryExpenses = useMemo<CategoryExpense[]>(() => getCategoryExpenses(monthTransactions), [monthTransactions])
+  const dailySummary = useMemo<DailyFinancialSummary[]>(
+    () => getDailyFinancialSummary(monthTransactions, selectedMonth),
+    [monthTransactions, selectedMonth],
+  )
 
   const filteredTransactions = useMemo(() => {
     const term = search.trim().toLowerCase()
@@ -62,6 +72,7 @@ export default function useTransactions(initialTransactions: Transaction[], sele
   return {
     transactions: filteredTransactions,
     summary,
+    dailySummary,
     categoryExpenses,
     filter,
     search,

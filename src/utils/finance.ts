@@ -1,4 +1,4 @@
-import type { CategoryExpense, Summary, Transaction, TransactionForm } from '../types/transaction'
+import type { CategoryExpense, DailyFinancialSummary, Summary, Transaction, TransactionForm } from '../types/transaction'
 
 export const CURRENCY = new Intl.NumberFormat('pt-BR', {
   style: 'currency',
@@ -62,6 +62,31 @@ export function getCategoryExpenses(transactions: Transaction[]): CategoryExpens
   return Object.entries(totals)
     .map(([category, amount]) => ({ category, amount }))
     .sort((a, b) => b.amount - a.amount)
+}
+
+export function getDailyFinancialSummary(
+  transactions: Transaction[],
+  selectedMonth: string,
+): DailyFinancialSummary[] {
+  const [year, month] = selectedMonth.split('-').map(Number)
+  const daysInMonth = new Date(year, month, 0).getDate()
+
+  const daily = Array.from({ length: daysInMonth }, (_, index) => ({
+    day: index + 1,
+    income: 0,
+    expense: 0,
+  }))
+
+  transactions.forEach((transaction) => {
+    const day = Number(transaction.date.slice(8, 10))
+    const item = daily[day - 1]
+    if (!item) return
+
+    if (transaction.type === 'income') item.income += Number(transaction.amount)
+    else item.expense += Number(transaction.amount)
+  })
+
+  return daily
 }
 
 export function getInitialTransactions(fallback: Transaction[]): Transaction[] {
