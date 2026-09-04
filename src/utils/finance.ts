@@ -64,14 +64,12 @@ export function getCategoryExpenses(transactions: Transaction[]): CategoryExpens
     .sort((a, b) => b.amount - a.amount)
 }
 
-export function getDailyFinancialSummary(transactions: Transaction[]): DailyFinancialSummary[] {
-  const daysInMonth = transactions.length
-    ? new Date(
-        Number(transactions[0].date.slice(0, 4)),
-        Number(transactions[0].date.slice(5, 7)),
-        0,
-      ).getDate()
-    : 31
+export function getDailyFinancialSummary(
+  transactions: Transaction[],
+  selectedMonth: string,
+): DailyFinancialSummary[] {
+  const [year, month] = selectedMonth.split('-').map(Number)
+  const daysInMonth = new Date(year, month, 0).getDate()
 
   const daily = Array.from({ length: daysInMonth }, (_, index) => ({
     day: index + 1,
