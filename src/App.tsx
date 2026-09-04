@@ -6,6 +6,7 @@ import Summary from './components/Summary'
 import TransactionsSection from './components/TransactionsSection'
 import TransactionModal from './components/TransactionModal'
 import CategoryChart from './components/CategoryChart'
+import FinancialChart from './components/FinancialChart'
 import useTransactions from './hooks/useTransactions'
 import type { Transaction, TransactionForm } from './types/transaction'
 import { CURRENCY, getMonthLabel } from './utils/finance'
@@ -26,6 +27,7 @@ function App() {
   const {
     transactions,
     summary,
+    dailySummary,
     categoryExpenses,
     filter,
     search,
@@ -95,6 +97,7 @@ function App() {
         <MonthPicker selectedMonth={selectedMonth} monthLabel={monthLabel} onChangeMonth={changeMonth} onSelectMonth={setSelectedMonth} />
       </section>
       <Summary summary={summary} monthLabel={monthLabel} currency={CURRENCY} />
+      <FinancialChart data={dailySummary} currency={CURRENCY} />
       <CategoryChart expenses={categoryExpenses} currency={CURRENCY} />
       <TransactionsSection monthLabel={monthLabel} filter={filter} search={search} onFilterChange={setFilter} onSearchChange={setSearch} onAdd={openNewTransaction} transactions={transactions} currency={CURRENCY} onRemove={handleRemove} onEdit={openEditTransaction} />
       {isModalOpen && <TransactionModal selectedMonth={selectedMonth} transaction={editingTransaction} onSubmit={saveTransaction} onClose={closeModal} />}
