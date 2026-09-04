@@ -3,6 +3,7 @@ import {
   calculateSummary,
   createTransactions,
   getCategoryExpenses,
+  getDailyFinancialSummary,
   dateAfterMonths,
 } from './finance'
 
@@ -164,6 +165,43 @@ describe('getCategoryExpenses', () => {
       { category: 'Alimentação', amount: 500 },
       { category: 'Moradia', amount: 400 },
     ])
+  })
+})
+
+describe('getDailyFinancialSummary', () => {
+  it('organiza entradas e saídas por dia', () => {
+    const transactions = [
+      {
+        id: 1,
+        description: 'Salário',
+        category: 'Trabalho',
+        type: 'income' as const,
+        amount: 4500,
+        date: '2026-08-05',
+        installment: null,
+      },
+      {
+        id: 2,
+        description: 'Mercado',
+        category: 'Alimentação',
+        type: 'expense' as const,
+        amount: 300,
+        date: '2026-08-05',
+        installment: null,
+      },
+    ]
+
+    const result = getDailyFinancialSummary(transactions, '2026-08')
+
+    expect(result).toHaveLength(31)
+    expect(result[4]).toEqual({ day: 5, income: 4500, expense: 300 })
+    expect(result[0]).toEqual({ day: 1, income: 0, expense: 0 })
+  })
+
+  it('considera corretamente meses com 28 dias', () => {
+    const result = getDailyFinancialSummary([], '2026-02')
+
+    expect(result).toHaveLength(28)
   })
 })
 
