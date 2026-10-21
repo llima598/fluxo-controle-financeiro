@@ -5,6 +5,7 @@ import {
   getCategoryExpenses,
   getDailyFinancialSummary,
   dateAfterMonths,
+  getCurrentMonth,
 } from './finance'
 
 describe('calculateSummary', () => {
@@ -212,5 +213,28 @@ describe('dateAfterMonths', () => {
 
   it('adiciona meses corretamente', () => {
     expect(dateAfterMonths('2026-08-15', 2)).toBe('2026-10-15')
+  })
+
+  it('vira o ano corretamente', () => {
+    expect(dateAfterMonths('2026-11-10', 3)).toBe('2027-02-10')
+  })
+
+  it('respeita ano bissexto', () => {
+    expect(dateAfterMonths('2028-01-31', 1)).toBe('2028-02-29')
+  })
+
+  it('mantém o dia 1º sem voltar para o mês anterior', () => {
+    expect(dateAfterMonths('2026-03-01', 1)).toBe('2026-04-01')
+  })
+})
+
+describe('getCurrentMonth', () => {
+  it('usa o mês local, sem converter para UTC', () => {
+    // 31/10/2026 às 22:30 no horário local ainda é outubro, mesmo que em UTC já seja novembro
+    expect(getCurrentMonth(new Date(2026, 9, 31, 22, 30))).toBe('2026-10')
+  })
+
+  it('formata meses com um dígito com zero à esquerda', () => {
+    expect(getCurrentMonth(new Date(2026, 0, 15))).toBe('2026-01')
   })
 })
