@@ -5,7 +5,7 @@ import Dashboard from './components/Dashboard'
 import TransactionModal from './components/TransactionModal'
 import useTransactions from './hooks/useTransactions'
 import type { Transaction, TransactionForm } from './types/transaction'
-import { getMonthLabel } from './utils/finance'
+import { getCurrentMonth, getMonthLabel } from './utils/finance'
 
 const initialTransactions: Transaction[] = [
   {
@@ -47,9 +47,7 @@ const initialTransactions: Transaction[] = [
 ]
 
 function App() {
-  const [selectedMonth, setSelectedMonth] = useState(
-    new Date().toISOString().slice(0, 7),
-  )
+  const [selectedMonth, setSelectedMonth] = useState(getCurrentMonth)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [editingTransaction, setEditingTransaction] =
     useState<Transaction | null>(null)

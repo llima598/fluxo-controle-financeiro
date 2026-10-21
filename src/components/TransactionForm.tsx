@@ -47,12 +47,12 @@ export default function TransactionForm({ selectedMonth, transaction, onSubmit }
     <form onSubmit={handleSubmit}>
       <label>Descrição<input required value={form.description} onChange={(event) => updateField('description', event.target.value)} placeholder="Ex.: Compra de notebook" /></label>
       <div className="form-row">
-        <label>{form.type === 'expense' && Number(form.installments) > 1 ? 'Valor total da compra' : 'Valor'}<input required min="0.01" step="0.01" type="number" value={form.amount} onChange={(event) => updateField('amount', event.target.value)} placeholder="0,00" /></label>
+        <label>{!isEditing && form.type === 'expense' && Number(form.installments) > 1 ? 'Valor total da compra' : 'Valor'}<input required min="0.01" step="0.01" type="number" value={form.amount} onChange={(event) => updateField('amount', event.target.value)} placeholder="0,00" /></label>
         <label>Tipo<select value={form.type} disabled={isEditing} onChange={handleTypeChange}><option value="expense">Saída</option><option value="income">Entrada</option></select></label>
       </div>
       <div className="form-row">
         <label>Categoria<select value={form.category} onChange={(event) => updateField('category', event.target.value)}>{categories.map((category) => <option key={category}>{category}</option>)}</select></label>
-        <label>Data da 1ª parcela<input required type="date" value={form.date} onChange={(event) => updateField('date', event.target.value)} /></label>
+        <label>{!isEditing && form.type === 'expense' && Number(form.installments) > 1 ? 'Data da 1ª parcela' : 'Data'}<input required type="date" value={form.date} onChange={(event) => updateField('date', event.target.value)} /></label>
       </div>
       {!isEditing && form.type === 'expense' && <label>Quantidade de parcelas<input required min="1" max="120" type="number" value={form.installments} onChange={(event) => updateField('installments', event.target.value)} /><span className="help-text">Em {form.installments || 1}x, o sistema cria uma despesa para cada mês.</span></label>}
       <button className="submit-button" type="submit">{isEditing ? 'Salvar alterações' : form.type === 'expense' && Number(form.installments) > 1 ? `Criar ${form.installments} parcelas` : 'Salvar transação'}</button>

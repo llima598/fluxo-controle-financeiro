@@ -5,11 +5,22 @@ export const CURRENCY = new Intl.NumberFormat('pt-BR', {
   currency: 'BRL',
 })
 
+function pad(value: number): string {
+  return String(value).padStart(2, '0')
+}
+
 export function dateAfterMonths(dateString: string, monthsToAdd: number): string {
   const [year, month, day] = dateString.split('-').map(Number)
   const lastDay = new Date(year, month + monthsToAdd, 0).getDate()
   const date = new Date(year, month - 1 + monthsToAdd, Math.min(day, lastDay))
-  return date.toISOString().slice(0, 10)
+
+  // Usa os valores locais da data. toISOString() converteria para UTC e,
+  // dependendo do fuso horário, poderia voltar um dia.
+  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`
+}
+
+export function getCurrentMonth(now: Date = new Date()): string {
+  return `${now.getFullYear()}-${pad(now.getMonth() + 1)}`
 }
 
 export function getMonthLabel(selectedMonth: string): string {
