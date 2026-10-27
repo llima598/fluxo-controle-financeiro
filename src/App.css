@@ -745,3 +745,10 @@ h2 {
         text-align: center;
     }
 }
+
+.form-error {
+  display: block;
+  margin-top: 8px;
+  font-size: 0.875rem;
+  color: #dc2626;
+}
