@@ -81,6 +81,22 @@ export default function TransactionForm({
       return
     }
 
+    if (!form.date) {
+      setError('Informe a data.')
+      return
+    }
+
+    const installments = Number(form.installments)
+
+    if (
+      !isEditing &&
+      form.type === 'expense' &&
+      (!Number.isInteger(installments) || installments < 1 || installments > 120)
+    ) {
+      setError('Informe de 1 a 120 parcelas.')
+      return
+    }
+
     setError('')
     onSubmit(form)
   }
@@ -96,7 +112,7 @@ export default function TransactionForm({
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} noValidate>
       <label>
         Descrição
         <input
@@ -181,7 +197,11 @@ export default function TransactionForm({
         </label>
       )}
 
-      {error && <span className="form-error">{error}</span>}
+      {error && (
+        <span className="form-error" role="alert">
+          {error}
+        </span>
+      )}
 
       <button className="submit-button" type="submit">
         {isEditing
