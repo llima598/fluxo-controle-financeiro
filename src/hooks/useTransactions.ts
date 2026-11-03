@@ -14,7 +14,11 @@ export default function useTransactions(initialTransactions: Transaction[], sele
   const [search, setSearch] = useState('')
 
   useEffect(() => {
-    localStorage.setItem('fluxo-transactions', JSON.stringify(transactions))
+    try {
+      localStorage.setItem('fluxo-transactions', JSON.stringify(transactions))
+    } catch {
+      // Armazenamento indisponível (aba privada ou cota cheia): o app segue funcionando sem persistir.
+    }
   }, [transactions])
 
   const monthTransactions = useMemo(

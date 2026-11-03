@@ -130,6 +130,23 @@ describe('TransactionForm — nova transação', () => {
     },
   )
 
+  it('rejeita valor que não rende ao menos R$ 0,01 por parcela', async () => {
+    const { onSubmit, user } = renderNewForm()
+
+    await user.type(screen.getByLabelText('Descrição'), 'Bala')
+    await user.type(screen.getByLabelText('Valor'), '0.05')
+
+    const installments = screen.getByLabelText(/Quantidade de parcelas/)
+    await user.clear(installments)
+    await user.type(installments, '10')
+    await user.click(screen.getByRole('button'))
+
+    expect(screen.getByRole('alert')).toHaveTextContent(
+      'O valor total precisa ter pelo menos R$ 0,01 por parcela.',
+    )
+    expect(onSubmit).not.toHaveBeenCalled()
+  })
+
   it('esconde o campo de parcelas para entradas e volta para 1 parcela', async () => {
     const { onSubmit, user } = renderNewForm()
 

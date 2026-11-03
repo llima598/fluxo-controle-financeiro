@@ -41,6 +41,14 @@ export function calculateSummary(transactions: Transaction[]): Summary {
   )
 }
 
+let lastId = 0
+
+// Garante ids únicos mesmo se duas chamadas acontecerem no mesmo milissegundo.
+function nextId(): number {
+  lastId = Math.max(Date.now(), lastId + 1)
+  return lastId
+}
+
 export function createTransactions(form: TransactionForm): Transaction[] {
   const total = Number(form.amount)
   const count = form.type === 'expense' ? Math.max(1, Number(form.installments)) : 1
@@ -50,7 +58,7 @@ export function createTransactions(form: TransactionForm): Transaction[] {
   const installmentGroupId = count > 1 ? `installment-${Date.now()}` : null
 
   return Array.from({ length: count }, (_, index) => ({
-    id: Date.now() + index,
+    id: nextId(),
     description: form.description.trim(),
     category: form.category,
     type: form.type,

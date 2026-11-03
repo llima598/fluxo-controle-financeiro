@@ -97,6 +97,18 @@ export default function TransactionForm({
       return
     }
 
+    const installmentCount =
+      !isEditing && form.type === 'expense' ? installments : 1
+
+    if (Math.round(total * 100) < installmentCount) {
+      setError(
+        installmentCount > 1
+          ? 'O valor total precisa ter pelo menos R$ 0,01 por parcela.'
+          : 'Informe um valor de pelo menos R$ 0,01.',
+      )
+      return
+    }
+
     setError('')
     onSubmit(form)
   }

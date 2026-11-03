@@ -7,44 +7,49 @@ import useTransactions from './hooks/useTransactions'
 import type { Transaction, TransactionForm } from './types/transaction'
 import { getCurrentMonth, getMonthLabel } from './utils/finance'
 
-const initialTransactions: Transaction[] = [
-  {
-    id: 1,
-    description: 'Salário',
-    category: 'Trabalho',
-    type: 'income',
-    amount: 4500,
-    date: '2026-08-05',
-    installment: null,
-  },
-  {
-    id: 2,
-    description: 'Mercado do mês',
-    category: 'Alimentação',
-    type: 'expense',
-    amount: 428.9,
-    date: '2026-08-12',
-    installment: null,
-  },
-  {
-    id: 3,
-    description: 'Freelance - Landing page',
-    category: 'Trabalho',
-    type: 'income',
-    amount: 850,
-    date: '2026-08-14',
-    installment: null,
-  },
-  {
-    id: 4,
-    description: 'Plano de internet',
-    category: 'Moradia',
-    type: 'expense',
-    amount: 119.9,
-    date: '2026-08-16',
-    installment: null,
-  },
-]
+function buildInitialTransactions(): Transaction[] {
+  // Datas relativas ao mês atual, para o app nunca abrir vazio na primeira visita.
+  const month = getCurrentMonth()
+
+  return [
+    {
+      id: 1,
+      description: 'Salário',
+      category: 'Trabalho',
+      type: 'income',
+      amount: 4500,
+      date: `${month}-05`,
+      installment: null,
+    },
+    {
+      id: 2,
+      description: 'Mercado do mês',
+      category: 'Alimentação',
+      type: 'expense',
+      amount: 428.9,
+      date: `${month}-12`,
+      installment: null,
+    },
+    {
+      id: 3,
+      description: 'Freelance - Landing page',
+      category: 'Trabalho',
+      type: 'income',
+      amount: 850,
+      date: `${month}-14`,
+      installment: null,
+    },
+    {
+      id: 4,
+      description: 'Plano de internet',
+      category: 'Moradia',
+      type: 'expense',
+      amount: 119.9,
+      date: `${month}-16`,
+      installment: null,
+    },
+  ]
+}
 
 function App() {
   const [selectedMonth, setSelectedMonth] = useState(getCurrentMonth)
@@ -65,7 +70,7 @@ function App() {
     addTransaction,
     updateTransaction,
     removeTransaction,
-  } = useTransactions(initialTransactions, selectedMonth)
+  } = useTransactions(buildInitialTransactions(), selectedMonth)
 
   useEffect(() => {
     if (!notification) return

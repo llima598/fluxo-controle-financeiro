@@ -238,3 +238,22 @@ describe('getCurrentMonth', () => {
     expect(getCurrentMonth(new Date(2026, 0, 15))).toBe('2026-01')
   })
 })
+
+describe('createTransactions — ids únicos', () => {
+  it('não repete ids entre chamadas feitas no mesmo instante', () => {
+    const form = {
+      description: 'Compra',
+      category: 'Outros',
+      type: 'expense' as const,
+      amount: 120,
+      date: '2026-11-03',
+      installments: 12,
+    }
+
+    const ids = [...createTransactions(form), ...createTransactions(form)].map(
+      (transaction) => transaction.id,
+    )
+
+    expect(new Set(ids).size).toBe(24)
+  })
+})

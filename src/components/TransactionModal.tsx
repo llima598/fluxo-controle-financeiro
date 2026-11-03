@@ -1,4 +1,4 @@
-import type { MouseEvent } from 'react'
+import { useEffect, type MouseEvent } from 'react'
 import type { Transaction, TransactionForm } from '../types/transaction'
 import Icon from './Icon'
 import TransactionFormComponent from './TransactionForm'
@@ -12,6 +12,15 @@ interface TransactionModalProps {
 
 export default function TransactionModal({ selectedMonth, transaction, onSubmit, onClose }: TransactionModalProps) {
   const isEditing = Boolean(transaction)
+
+  useEffect(() => {
+    function handleKeyDown(event: KeyboardEvent): void {
+      if (event.key === 'Escape') onClose()
+    }
+
+    document.addEventListener('keydown', handleKeyDown)
+    return () => document.removeEventListener('keydown', handleKeyDown)
+  }, [onClose])
 
   function stopPropagation(event: MouseEvent<HTMLElement>): void {
     event.stopPropagation()
