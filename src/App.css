@@ -146,35 +146,8 @@
     font-size: 13px;
 }
 
-.topbar {
-    height: 84px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
 
-.brand {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: #183d30;
-    font-family: 'Playfair Display', serif;
-    font-size: 25px;
-    font-weight: 700;
-    text-decoration: none;
-}
 
-.brand-mark {
-    display: grid;
-    place-items: center;
-    width: 36px;
-    height: 36px;
-    border-radius: 11px;
-    background: #1d6b4e;
-    color: white;
-}
-
-.new-button,
 .submit-button {
     display: inline-flex;
     align-items: center;
@@ -189,7 +162,6 @@
     transition: background .2s, transform .2s;
 }
 
-.new-button:hover,
 .submit-button:hover {
     background: #15533b;
     transform: translateY(-1px);
@@ -232,6 +204,7 @@ h1 span {
 h2 {
     margin-bottom: 0;
     font-size: 24px;
+    font-weight: 700;
     letter-spacing: -.03em;
 }
 
@@ -645,18 +618,8 @@ h2 {
         padding: 0 16px 30px;
     }
 
-    .topbar {
-        height: 70px;
-    }
+    
 
-    .brand {
-        font-size: 22px;
-    }
-
-    .new-button {
-        padding: 10px 12px;
-        font-size: 13px;
-    }
 
     .hero {
         display: block;
