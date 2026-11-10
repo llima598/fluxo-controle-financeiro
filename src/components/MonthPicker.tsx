@@ -13,7 +13,7 @@ export default function MonthPicker({ selectedMonth, monthLabel, onChangeMonth, 
       <button className="grid size-8 place-items-center rounded-lg border border-[#dde6df] bg-white text-[#2e6650] hover:bg-[#eef5f0]" onClick={() => onChangeMonth(-1)} aria-label="Mês anterior">
         <Icon name="left" size={18} />
       </button>
-      <input className="col-span-3 col-start-1 row-start-1 w-full cursor-pointer opacity-0" type="month" value={selectedMonth} onChange={(event) => onSelectMonth(event.target.value)} aria-label="Selecionar mês" />
+      <input className="col-start-2 row-start-1 w-full cursor-pointer rounded-md border border-[#dde6df] bg-white px-1 py-1 text-center text-xs text-[#2e6650]" type="month" value={selectedMonth} onChange={(event) => onSelectMonth(event.target.value)} aria-label="Selecionar mês" />
       <button className="col-start-3 row-start-1 grid size-8 place-items-center rounded-lg border border-[#dde6df] bg-white text-[#2e6650] hover:bg-[#eef5f0]" onClick={() => onChangeMonth(1)} aria-label="Próximo mês">
         <Icon name="right" size={18} />
       </button>
