@@ -31,7 +31,7 @@ export default function Dashboard({
 }: DashboardProps) {
   return (
     <>
-      <section className="flex items-end justify-between py-[42px_0_31px] max-[680px]:block max-[680px]:pb-6 max-[680px]:pt-8" id="top">
+      <section className="flex items-end justify-between pt-[42px] pb-[31px] max-[680px]:block max-[680px]:pb-6 max-[680px]:pt-8" id="top">
         <div>
           <p className="mb-[7px] text-[11px] font-bold uppercase tracking-[0.13em] text-[#6d7a72]">Visão geral</p>
           <h1 className="mb-2 font-['Playfair_Display',Georgia,serif] text-[clamp(34px,4vw,48px)] leading-[1.08] text-[#173c2f]">Olá, Lucas! <span className="text-[#d8a23e]">✦</span></h1>
