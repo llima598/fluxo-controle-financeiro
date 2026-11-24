@@ -6,7 +6,7 @@ import { CURRENCY } from '../utils/finance'
 import TransactionList from './TransactionList'
 
 const salary: Transaction = {
-  id: 1,
+  id: '1',
   description: 'Salário',
   category: 'Trabalho',
   type: 'income',
@@ -16,7 +16,7 @@ const salary: Transaction = {
 }
 
 const installment: Transaction = {
-  id: 2,
+  id: '2',
   description: 'Notebook',
   category: 'Educação',
   type: 'expense',
@@ -86,6 +86,6 @@ describe('TransactionList', () => {
     await user.click(screen.getByRole('button', { name: 'Excluir Salário' }))
 
     expect(onRemove).toHaveBeenCalledTimes(1)
-    expect(onRemove).toHaveBeenCalledWith(1)
+    expect(onRemove).toHaveBeenCalledWith('1')
   })
 })

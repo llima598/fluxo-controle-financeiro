@@ -1,4 +1,11 @@
-import type { CategoryExpense, DailyFinancialSummary, Summary, Transaction, TransactionForm } from '../types/transaction'
+
+import type {
+  CategoryExpense,
+  DailyFinancialSummary,
+  Summary,
+  Transaction,
+  TransactionForm,
+} from '../types/transaction'
 
 export const CURRENCY = new Intl.NumberFormat('pt-BR', {
   style: 'currency',
@@ -14,8 +21,6 @@ export function dateAfterMonths(dateString: string, monthsToAdd: number): string
   const lastDay = new Date(year, month + monthsToAdd, 0).getDate()
   const date = new Date(year, month - 1 + monthsToAdd, Math.min(day, lastDay))
 
-  // Usa os valores locais da data. toISOString() converteria para UTC e,
-  // dependendo do fuso horário, poderia voltar um dia.
   return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`
 }
 
@@ -33,8 +38,12 @@ export function getMonthLabel(selectedMonth: string): string {
 export function calculateSummary(transactions: Transaction[]): Summary {
   return transactions.reduce<Summary>(
     (acc, transaction) => {
-      if (transaction.type === 'income') acc.income += Number(transaction.amount)
-      else acc.expense += Number(transaction.amount)
+      if (transaction.type === 'income') {
+        acc.income += Number(transaction.amount)
+      } else {
+        acc.expense += Number(transaction.amount)
+      }
+
       return acc
     },
     { income: 0, expense: 0 },
@@ -47,17 +56,21 @@ export function createTransactions(form: TransactionForm): Transaction[] {
   const totalInCents = Math.round(total * 100)
   const centsPerInstallment = Math.floor(totalInCents / count)
   const remainder = totalInCents % count
-  const installmentGroupId = count > 1 ? `installment-${Date.now()}` : null
+  const installmentGroupId = count > 1 ? crypto.randomUUID() : null
 
   return Array.from({ length: count }, (_, index) => ({
-    id: Date.now() + index,
+    id: crypto.randomUUID(),
     description: form.description.trim(),
     category: form.category,
     type: form.type,
     amount: (centsPerInstallment + (index < remainder ? 1 : 0)) / 100,
     date: dateAfterMonths(form.date, index),
     installment: count > 1 && installmentGroupId
-      ? { current: index + 1, total: count, groupId: installmentGroupId }
+      ? {
+          current: index + 1,
+          total: count,
+          groupId: installmentGroupId,
+        }
       : null,
   }))
 }
@@ -91,20 +104,15 @@ export function getDailyFinancialSummary(
   transactions.forEach((transaction) => {
     const day = Number(transaction.date.slice(8, 10))
     const item = daily[day - 1]
+
     if (!item) return
 
-    if (transaction.type === 'income') item.income += Number(transaction.amount)
-    else item.expense += Number(transaction.amount)
+    if (transaction.type === 'income') {
+      item.income += Number(transaction.amount)
+    } else {
+      item.expense += Number(transaction.amount)
+    }
   })
 
   return daily
-}
-
-export function getInitialTransactions(fallback: Transaction[]): Transaction[] {
-  try {
-    const saved = localStorage.getItem('fluxo-transactions')
-    return saved ? (JSON.parse(saved) as Transaction[]) : fallback
-  } catch {
-    return fallback
-  }
 }

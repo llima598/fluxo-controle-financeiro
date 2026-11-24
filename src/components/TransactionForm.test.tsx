@@ -5,7 +5,7 @@ import type { Transaction } from '../types/transaction'
 import TransactionForm from './TransactionForm'
 
 const existingExpense: Transaction = {
-  id: 10,
+  id: '10',
   description: 'Notebook',
   category: 'Educação',
   type: 'expense',

@@ -1,3 +1,4 @@
+
 import type { Transaction } from '../types/transaction'
 import { CURRENCY } from '../utils/finance'
 import MonthPicker from './MonthPicker'
@@ -20,7 +21,7 @@ interface DashboardProps {
   onFilterChange: (filter: 'all' | 'income' | 'expense') => void
   onSearchChange: (search: string) => void
   onAdd: () => void
-  onRemove: (id: number) => void
+  onRemove: (id: string) => void
   onEdit: (transaction: Transaction) => void
 }
 

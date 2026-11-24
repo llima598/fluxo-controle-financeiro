@@ -1,10 +1,11 @@
+
 import type { Transaction } from '../types/transaction'
 import Icon from './Icon'
 
 interface TransactionListProps {
   transactions: Transaction[]
   currency: Intl.NumberFormat
-  onRemove: (id: number) => void
+  onRemove: (id: string) => void
   onEdit: (transaction: Transaction) => void
 }
 

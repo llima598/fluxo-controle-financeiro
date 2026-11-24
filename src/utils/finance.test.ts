@@ -1,4 +1,4 @@
-﻿import { describe, expect, it } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import {
   calculateSummary,
   createTransactions,
@@ -12,7 +12,7 @@ describe('calculateSummary', () => {
   it('calcula corretamente receitas e despesas', () => {
     const transactions = [
       {
-        id: 1,
+        id: '1',
         description: 'Salário',
         category: 'Trabalho',
         type: 'income' as const,
@@ -21,7 +21,7 @@ describe('calculateSummary', () => {
         installment: null,
       },
       {
-        id: 2,
+        id: '2',
         description: 'Mercado',
         category: 'Alimentação',
         type: 'expense' as const,
@@ -125,7 +125,7 @@ describe('getCategoryExpenses', () => {
   it('agrupa despesas por categoria e ordena da maior para a menor', () => {
     const transactions = [
       {
-        id: 1,
+        id: '1',
         description: 'Mercado',
         category: 'Alimentação',
         type: 'expense' as const,
@@ -134,7 +134,7 @@ describe('getCategoryExpenses', () => {
         installment: null,
       },
       {
-        id: 2,
+        id: '2',
         description: 'Restaurante',
         category: 'Alimentação',
         type: 'expense' as const,
@@ -143,7 +143,7 @@ describe('getCategoryExpenses', () => {
         installment: null,
       },
       {
-        id: 3,
+        id: '3',
         description: 'Internet',
         category: 'Moradia',
         type: 'expense' as const,
@@ -152,7 +152,7 @@ describe('getCategoryExpenses', () => {
         installment: null,
       },
       {
-        id: 4,
+        id: '4',
         description: 'Salário',
         category: 'Trabalho',
         type: 'income' as const,
@@ -173,7 +173,7 @@ describe('getDailyFinancialSummary', () => {
   it('organiza entradas e saídas por dia', () => {
     const transactions = [
       {
-        id: 1,
+        id: '1',
         description: 'Salário',
         category: 'Trabalho',
         type: 'income' as const,
@@ -182,7 +182,7 @@ describe('getDailyFinancialSummary', () => {
         installment: null,
       },
       {
-        id: 2,
+        id: '2',
         description: 'Mercado',
         category: 'Alimentação',
         type: 'expense' as const,

@@ -1,3 +1,4 @@
+
 export type TransactionType = 'income' | 'expense'
 
 export interface Installment {
@@ -7,7 +8,7 @@ export interface Installment {
 }
 
 export interface Transaction {
-  id: number
+  id: string
   description: string
   category: string
   type: TransactionType
