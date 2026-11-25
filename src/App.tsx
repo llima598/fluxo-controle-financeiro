@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import Header from './components/Header'
 import Dashboard from './components/Dashboard'
 import TransactionModal from './components/TransactionModal'
+import ProfileModal from './components/ProfileModal'
 import AuthForm from './components/AuthForm'
 import useTransactions from './hooks/useTransactions'
 import { useAuth } from './contexts/AuthContext'
@@ -14,6 +15,7 @@ function App() {
 
   const [selectedMonth, setSelectedMonth] = useState(getCurrentMonth)
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isProfileOpen, setIsProfileOpen] = useState(false)
   const [editingTransaction, setEditingTransaction] = useState<Transaction | null>(null)
   const [notification, setNotification] = useState<string | null>(null)
 
@@ -118,10 +120,10 @@ function App() {
 
   const fullName = user.user_metadata?.full_name
 
-const userName =
-  typeof fullName === 'string' && fullName.trim()
-    ? fullName.trim().split(/\s+/)[0]
-    : ''
+  const userName =
+    typeof fullName === 'string' && fullName.trim()
+      ? fullName.trim().split(/\s+/)[0]
+      : ''
 
   if (transactionsLoading) {
     return (
@@ -142,7 +144,11 @@ const userName =
         </div>
       )}
 
-      <Header email={user.email ?? ''} onSignOut={handleSignOut} />
+      <Header
+        email={user.email ?? ''}
+        onSignOut={handleSignOut}
+        onOpenProfile={() => setIsProfileOpen(true)}
+      />
 
       <Dashboard
         userName={userName}
@@ -169,6 +175,13 @@ const userName =
           transaction={editingTransaction}
           onSubmit={saveTransaction}
           onClose={closeModal}
+        />
+      )}
+
+      {isProfileOpen && (
+        <ProfileModal
+          user={user}
+          onClose={() => setIsProfileOpen(false)}
         />
       )}
     </main>

@@ -4,9 +4,14 @@ import Icon from './Icon'
 interface HeaderProps {
   email: string
   onSignOut: () => void
+  onOpenProfile: () => void
 }
 
-export default function Header({ email, onSignOut }: HeaderProps) {
+export default function Header({
+  email,
+  onSignOut,
+  onOpenProfile,
+}: HeaderProps) {
   return (
     <header className="flex min-h-[84px] items-center justify-between gap-4 max-[680px]:min-h-[70px]">
       <a
@@ -20,13 +25,22 @@ export default function Header({ email, onSignOut }: HeaderProps) {
         Fluxo
       </a>
 
-      <div className="flex items-center gap-4 max-[680px]:gap-2">
+      <div className="flex items-center gap-3 max-[680px]:gap-2">
         <span
           className="max-w-[220px] truncate text-xs text-[#6d7a72] max-[680px]:hidden"
           title={email}
         >
           {email}
         </span>
+
+        <button
+          className="inline-flex items-center justify-center gap-2 rounded-[10px] border border-[#dce4de] bg-white px-3 py-2.5 text-[13px] font-bold text-[#52645a] transition hover:bg-[#f0f5f1]"
+          onClick={onOpenProfile}
+          type="button"
+        >
+          <Icon name="user" size={17} />
+          <span className="max-[420px]:hidden">Meu perfil</span>
+        </button>
 
         <button
           className="inline-flex items-center justify-center gap-2 rounded-[10px] border border-[#dce4de] bg-white px-3 py-2.5 text-[13px] font-bold text-[#52645a] transition hover:bg-[#f0f5f1]"
