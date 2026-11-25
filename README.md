@@ -1,6 +1,6 @@
 # 💸 Fluxo — Controle Financeiro
 
-Aplicação web responsiva para gerenciamento de finanças pessoais, desenvolvida com **React e TypeScript**. O projeto permite organizar receitas, despesas e compras parceladas, acompanhar movimentações financeiras e visualizar os gastos de forma intuitiva.
+Aplicação web responsiva para gerenciamento de finanças pessoais, desenvolvida com **React e TypeScript**. O projeto permite organizar receitas, despesas e compras parceladas, acompanhar movimentações financeiras e visualizar os gastos por meio de um dashboard intuitivo.
 
 🔗 **[Acessar demonstração](https://fluxo-controle-financeiro-iota.vercel.app/)**
 
@@ -10,14 +10,17 @@ Aplicação web responsiva para gerenciamento de finanças pessoais, desenvolvid
 
 ## ✨ Funcionalidades
 
+- **Autenticação de usuários:** cadastro e login com gerenciamento de sessão.
+- **Gerenciamento de perfil:** edição de nome, solicitação de alteração de e-mail e atualização de senha.
 - **Gerenciamento de transações:** cadastro, edição e exclusão de receitas e despesas.
 - **Dashboard financeiro:** acompanhamento de saldo, entradas e saídas do mês.
-- **Navegação mensal:** consulta e organização das movimentações por período.
+- **Navegação mensal:** consulta das movimentações por mês e ano.
 - **Filtros e busca:** pesquisa por descrição, categoria e tipo de movimentação.
 - **Compras parceladas:** geração automática das parcelas nos meses correspondentes.
 - **Precisão nos cálculos:** tratamento de valores em centavos para evitar erros de arredondamento na divisão das parcelas.
 - **Visualização financeira:** gráficos de movimentação diária e gastos por categoria.
-- **Persistência de dados:** armazenamento das informações no navegador com `localStorage`.
+- **Persistência de dados:** armazenamento das informações em banco de dados PostgreSQL.
+- **Segurança de dados:** políticas de Row Level Security (RLS) para garantir que cada usuário acesse somente suas próprias transações.
 - **Interface responsiva:** adaptação para diferentes tamanhos de tela.
 
 ## 🛠️ Tecnologias
@@ -28,10 +31,12 @@ Aplicação web responsiva para gerenciamento de finanças pessoais, desenvolvid
 | TypeScript | Tipagem estática e segurança no desenvolvimento |
 | Vite | Ambiente de desenvolvimento e build |
 | Tailwind CSS v4 | Estilização e responsividade |
+| Supabase | Autenticação e integração com o banco de dados |
+| PostgreSQL | Persistência e gerenciamento dos dados |
+| Row Level Security (RLS) | Controle de acesso aos dados por usuário |
 | Vitest | Testes automatizados |
 | Testing Library | Testes de componentes e interações |
 | Oxlint | Análise estática do código |
-| localStorage | Persistência de dados no navegador |
 
 ## 🧠 Principais aprendizados
 
@@ -45,7 +50,10 @@ Durante o desenvolvimento, pratiquei conceitos importantes do ecossistema React 
 - Desenvolvimento de operações CRUD.
 - Manipulação de formulários e validação de dados.
 - Filtros, pesquisas e renderização condicional.
-- Persistência de dados com `localStorage`.
+- Autenticação e gerenciamento de sessões com Supabase.
+- Integração de aplicação Front-End com banco de dados PostgreSQL.
+- Implementação de políticas de segurança com Row Level Security (RLS).
+- Atualização de dados de perfil utilizando Supabase Auth.
 - Tratamento de valores monetários em centavos.
 - Cálculo e distribuição de parcelas com precisão.
 - Testes automatizados de funções e componentes com Vitest e Testing Library.
@@ -53,12 +61,20 @@ Durante o desenvolvimento, pratiquei conceitos importantes do ecossistema React 
 
 ## 🧪 Testes
 
-O projeto possui **29 casos de teste** distribuídos entre testes de regras financeiras e componentes.
+O projeto possui **35 testes automatizados**, distribuídos entre regras financeiras e componentes da interface.
 
 Para executar os testes uma única vez:
 
 ```bash
 npm run test -- --run
+```
+
+Outras validações:
+
+```bash
+npm run typecheck  # Verifica a tipagem TypeScript
+npm run build      # Gera o build de produção
+npm run lint       # Executa a análise estática com Oxlint
 ```
 
 ## 💻 Como executar localmente
@@ -81,6 +97,21 @@ Instale as dependências:
 npm install
 ```
 
+### Configuração do Supabase
+
+O projeto utiliza Supabase para autenticação e persistência dos dados.
+
+Crie um projeto no [Supabase](https://supabase.com/) e configure as seguintes variáveis de ambiente em um arquivo `.env.local` na raiz do projeto:
+
+```env
+VITE_SUPABASE_URL=sua_url_do_supabase
+VITE_SUPABASE_ANON_KEY=sua_chave_publica_do_supabase
+```
+
+Substitua os valores pelos dados do seu projeto Supabase.
+
+**Importante:** nunca compartilhe ou publique chaves secretas ou `service_role` no código ou no repositório.
+
 Inicie o servidor de desenvolvimento:
 
 ```bash
@@ -89,29 +120,6 @@ npm run dev
 
 Acesse o endereço informado pelo Vite no terminal, normalmente `http://localhost:5173`.
 
-### Outros comandos
+## 🚀 Deploy
 
-```bash
-npm run build       # Gera o build de produção
-npm run typecheck   # Verifica a tipagem TypeScript
-npm run lint        # Executa a análise estática com Oxlint
-npm run test -- --run  # Executa os testes uma única vez
-```
-
-## 🔮 Próximas melhorias
-
-- [ ] Implementar autenticação de usuários.
-- [ ] Integrar uma API e banco de dados.
-- [ ] Adicionar despesas recorrentes.
-- [ ] Permitir gerenciamento de grupos de parcelas.
-
-## 👨‍💻 Autor
-
-**Lucas Lima**
-
-- [GitHub](https://github.com/llima598)
-- [LinkedIn](https://www.linkedin.com/in/lucas-lima-231248191/)
-
----
-
-Projeto desenvolvido de forma independente como parte dos meus estudos em desenvolvimento Front-End, com foco em React, TypeScript, organização de código e boas práticas de desenvolvimento.
+A aplicação está publicada na Vercel, com integração ao repositório GitHub para atualização
