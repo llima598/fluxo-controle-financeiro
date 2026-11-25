@@ -116,6 +116,13 @@ function App() {
     return <AuthForm />
   }
 
+  const fullName = user.user_metadata?.full_name
+
+const userName =
+  typeof fullName === 'string' && fullName.trim()
+    ? fullName.trim().split(/\s+/)[0]
+    : ''
+
   if (transactionsLoading) {
     return (
       <main className="grid min-h-screen place-items-center text-[#6d7a72]">
@@ -138,6 +145,7 @@ function App() {
       <Header email={user.email ?? ''} onSignOut={handleSignOut} />
 
       <Dashboard
+        userName={userName}
         selectedMonth={selectedMonth}
         monthLabel={monthLabel}
         transactions={transactions}

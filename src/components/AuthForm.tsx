@@ -7,6 +7,7 @@ type AuthMode = 'login' | 'register' | 'recovery'
 
 export default function AuthForm() {
   const [mode, setMode] = useState<AuthMode>('login')
+  const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
@@ -22,9 +23,18 @@ export default function AuthForm() {
 
     try {
       if (mode === 'register') {
+        if (!name.trim()) {
+          throw new Error('Informe seu nome completo.')
+        }
+
         const { data, error: authError } = await supabase.auth.signUp({
           email: email.trim(),
           password,
+          options: {
+            data: {
+              full_name: name.trim(),
+            },
+          },
         })
 
         if (authError) throw authError
@@ -109,6 +119,28 @@ export default function AuthForm() {
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-5">
+          {mode === 'register' && (
+            <div>
+              <label
+                htmlFor="name"
+                className="mb-2 block text-sm font-semibold text-[#35443b]"
+              >
+                Nome completo
+              </label>
+
+              <input
+                id="name"
+                type="text"
+                required
+                autoComplete="name"
+                value={name}
+                onChange={(event) => setName(event.target.value)}
+                placeholder="Seu nome completo"
+                className="w-full rounded-lg border border-[#dce4dd] bg-white px-4 py-3 text-sm outline-none transition focus:border-[#1d6b4e] focus:ring-2 focus:ring-[#1d6b4e]/10"
+              />
+            </div>
+          )}
+
           <div>
             <label
               htmlFor="email"
